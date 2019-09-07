@@ -1,0 +1,42 @@
+{
+  "env": {
+    "test": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "targets": [
+              "node 6"
+            ]
+          }
+        ]
+      ]
+    },
+    "production": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "targets": [
+              "node 6"
+            ],
+            "modules": false
+          }
+        ]
+      ]
+    },
+    "development": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "targets": [
+              "node 6"
+            ],
+            "modules": false
+          }
+        ]
+      ]
+    }
+  }
+}
