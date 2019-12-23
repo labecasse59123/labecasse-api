@@ -1,3 +1,6 @@
+import validator from 'validator';
+import logger from 'services/loggers/api';
+
 import * as RegisterDataService from './data';
 
 /**
@@ -37,4 +40,36 @@ export function fetchResource({ key } = {}) {
  */
 export function saveResource({ key, ...resource } = {}) {
   return RegisterDataService.save(key, resource);
+}
+
+/**
+ * Validate the password.
+ * Must contains at least 1 lowercase, 1 uppercase, 1 number, 1 special char.
+ * Must be at least 8 characters.
+ *
+ * @param {string} password - The password to validate.
+ */
+export function validatePassword(password) {
+  logger.info('Validating password');
+  try {
+    return validator.matches(`${password}`,
+    /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[!"#\$%&'\(\)\*\+,-\.\/:;<=>\?@[\]\^_`\{\|}~])[a-zA-Z0-9!"#\$%&'\(\)\*\+,-\.\/:;<=>\?@[\]\^_`\{\|}~]{8,}$/); // eslint-disable-line
+  } catch (err) {
+    logger.error(err);
+    return false;
+  }
+}
+/**
+ * Validate the mail.
+ *
+ * @param {string} mail - The mail to validate.
+ */
+export function validateMail(mail) {
+  logger.info(`Validating email: ${mail}`);
+  try {
+    return validator.isEmail(`${mail}`);
+  } catch (err) {
+    logger.error(err);
+    return false;
+  }
 }
