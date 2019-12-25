@@ -16,7 +16,7 @@ export async function post(req, res) {
       return res.status(400).json({ msg: 'Invalid user or password' });
     }
     logger.info(`Checking for existing user ${mail}`);
-    const user = UserService.fetchUser(mail);
+    const user = await UserService.fetchUser({ mail });
     if (user) {
       logger.error(`Attempt to register for existing user: ${mail}`);
       return res.status(403).json({ msg: 'User already exists' });
